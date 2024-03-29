@@ -1,7 +1,8 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, sqlite3
 
 app = Flask(__name__, template_folder='templates')
 
+conexao = sqlite3.connect('cadastros.db')
 # Lista para armazenar os dados das pessoas cadastradas
 pessoas = []
 
