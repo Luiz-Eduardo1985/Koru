@@ -3,10 +3,10 @@ from flask import Flask, render_template, request, redirect, url_for, sqlite3
 app = Flask(__name__, template_folder='templates')
 
 conexao = sqlite3.connect('cadastros.db')
-# Lista para armazenar os dados das pessoas cadastradas
+# Lista para armazenar os dados das pessoas cadastradas TESTE
 pessoas = []
 
-# Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD teste
+# Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD
 
 @app.route('/')
 def index():
