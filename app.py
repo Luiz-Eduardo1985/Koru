@@ -6,7 +6,8 @@ conexao = sqlite3.connect('cadastros.db')
 # Lista para armazenar os dados das pessoas cadastradas
 pessoas = []
 
-# Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD
+# Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD teste
+
 @app.route('/')
 def index():
     return render_template('index.html', pessoas=pessoas)
