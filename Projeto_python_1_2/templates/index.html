@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro de Pessoas</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
+
 <body>
     <h1>Cadastro de Pessoas</h1>
 
@@ -22,12 +24,13 @@
     <!-- Lista de pessoas cadastradas -->
     <h2>Pessoas Cadastradas</h2>
     <ul>
-        {% for pessoa in pessoas %}
-            <li>Nome: {{ pessoa.nome }}, CPF: {{ pessoa.cpf }}
-                [<a href="/editar/{{ pessoa.cpf }}">Editar</a>]
-                [<a href="/excluir/{{ pessoa.cpf }}">Excluir</a>]
-            </li>
+        {% for id_pessoa, nome, cpf in pessoas %}
+        <li>id_pessoa: {{ id_pessoa }}, Nome: {{ nome }}, CPF: {{ cpf }}
+            [<a href="/editar/{{ id_pessoa}}">Editar</a>]
+            [<a href="/excluir/{{ id_pessoa }}">Excluir</a>]
+        </li>
         {% endfor %}
     </ul>
 </body>
+
 </html>
