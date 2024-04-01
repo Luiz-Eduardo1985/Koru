@@ -2,6 +2,7 @@ import sqlite3
 from flask import Flask, render_template, request, redirect, url_for
 
 
+
 app = Flask(__name__, template_folder='templates')
 
 #conexao = sqlite3.connect('cadastros.db')
@@ -72,13 +73,13 @@ def gerar_id():
 # Lista para armazenar os dados das pessoas cadastradas
 
 
-pessoas = []
+#pessoas = []
 
 # Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD
 @app.route('/')
 def index():
-    lista_pessoas = cadastros.listar_pessoas()
-    return render_template('index.html', pessoas=lista_pessoas)
+   
+    return render_template('index.html', pessoas=listar_pessoas())
 
 # Rota para cadastrar uma nova pessoac
 @app.route('/cadastrar', methods=['POST'])

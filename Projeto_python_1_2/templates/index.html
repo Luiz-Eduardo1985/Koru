@@ -25,7 +25,7 @@
     <h2>Pessoas Cadastradas</h2>
     <ul>
         {% for id_pessoa, nome, cpf in pessoas %}
-        <li>id_pessoa: {{ id_pessoa }}, Nome: {{ nome }}, CPF: {{ cpf }}
+        <li>ID: {{ id_pessoa }}, Nome: {{ nome }}, CPF: {{ cpf }}
             [<a href="/editar/{{ id_pessoa}}">Editar</a>]
             [<a href="/excluir/{{ id_pessoa }}">Excluir</a>]
         </li>
