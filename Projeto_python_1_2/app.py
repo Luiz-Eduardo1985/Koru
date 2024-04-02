@@ -107,18 +107,18 @@ def cadastrar_pessoa():
 # Rota para editar/atualizar uma pessoa
 @app.route('/editar/<id_pessoa>', methods=['GET', 'POST'])
 
-def editar_pessoa( nome, cpf):   
+def editar_pessoa(id_pessoa:int, nome, cpf):   
     try:
         if request.method == 'POST':
             conexao = sqlite3.connect('cadastros.db')
             cursor = conexao.cursor()
-            sql_update = "UPDATE tabela_cadastro SET NOME = ? WHERE id_pessoa = ?"
-            cursor.execute(sql_update, (nome, cpf))
+            sql_update = "UPDATE tabela_cadastro SET NOME = ? WHERE cpf = ?"
             nome = request.form['nome']
-            cpf = request.form['cpf']     
+            cpf = request.form['cpf']  
+            cursor.execute(sql_update, (nome, cpf))         
             conexao.commit()
             conexao.close()
-            return redirect(url_for('index'))
+            return redirect(url_for('editar'))
     except Exception as ex:
         print(ex)
         return False
