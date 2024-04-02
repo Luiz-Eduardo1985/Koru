@@ -24,10 +24,10 @@
     <!-- Lista de pessoas cadastradas -->
     <h2>Pessoas Cadastradas</h2>
     <ul>
-        {% for id_pessoa, nome, cpf in pessoas %}
-        <li>ID: {{ id_pessoa }}, Nome: {{ nome }}, CPF: {{ cpf }}
-            [<a href="/editar/{{ id_pessoa}}">Editar</a>]
-            [<a href="/excluir/{{ id_pessoa }}">Excluir</a>]
+        {% for itens in pessoas %}
+        <li>ID: {{ itens[0] }}, Nome: {{ itens[1] }}, CPF: {{ itens[2] }}
+            [<a href="/editar/{{ itens[0] }}">Editar</a>]
+            [<a href="/excluir/{{ itens[0] }}">Excluir</a>]
         </li>
         {% endfor %}
     </ul>

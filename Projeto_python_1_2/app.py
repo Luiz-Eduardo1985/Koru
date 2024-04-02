@@ -62,18 +62,18 @@ def listar_pessoas():
 
 
 #gerar id ou recuperar ultimo id usado
-def gerar_id():
-    conexao = sqlite3.connect('cadastros.db')
-    cursor = conexao.cursor()
-    cursor.execute("select seq from sqlite_sequence where name = 'tabela_cadastro'")
-    next_id = cursor.fetchone()[0]
-    return next_id + 1
+# def gerar_id():
+#     conexao = sqlite3.connect('cadastros.db')
+#     cursor = conexao.cursor()
+#     cursor.execute("select seq from sqlite_sequence where name = 'tabela_cadastro'")
+#     next_id = cursor.fetchone()[0]
+#     return next_id + 1
 
 
 # Lista para armazenar os dados das pessoas cadastradas
 
 
-#pessoas = []
+pessoas = []
 
 # Rota para exibir a página inicial com a lista de pessoas cadastradas e opções CRUD
 @app.route('/')
@@ -83,26 +83,22 @@ def index():
 
 # Rota para cadastrar uma nova pessoac
 @app.route('/cadastrar', methods=['POST'])
-
-#função de cadastrar pessoas
 def cadastrar_pessoa():
-    try:
+    try:        
         conexao = sqlite3.connect('cadastros.db')
         cursor = conexao.cursor()
-        sql_insert = "insert into tabela_cadastro (nome, cpf) values (?, ?)"
-        cursor.execute(sql_insert, (nome, cpf))
-        id_pessoa = cursor.lastrowid
+        sql_insert = "insert into tabela_cadastro (nome, cpf) values (?, ?)"        
+        nome = request.form['nome']
+        cpf = request.form['cpf']   
+        cursor.execute(sql_insert, (nome, cpf))    
         conexao.commit()
         conexao.close()
-        return id_pessoa
+        return redirect(url_for('index'))
     except Exception as ex:
         print(ex)
-        return False
+        return "",500
     
-    # nome = request.form['nome']
-    # cpf = request.form['cpf']
-    # pessoas.append({'nome': nome, 'cpf': cpf})
-    # return redirect(url_for('index'))
+    
 
 
 
@@ -111,27 +107,23 @@ def cadastrar_pessoa():
 # Rota para editar/atualizar uma pessoa
 @app.route('/editar/<id_pessoa>', methods=['GET', 'POST'])
 
-def editar_pessoa(id_pessoa:int, nome, cpf):
+def editar_pessoa( nome, cpf):   
     try:
-        conexao = sqlite3.connect('cadastros.db')
-        cursor = conexao.cursor()
-        sql_update = "UPDATE tabela_cadastro SET NOME = ? WHERE id_pessoa = ?"
-        cursor.execute(sql_update, (nome, cpf))
-        conexao.commit()
-        conexao.close()
-        return True
+        if request.method == 'POST':
+            conexao = sqlite3.connect('cadastros.db')
+            cursor = conexao.cursor()
+            sql_update = "UPDATE tabela_cadastro SET NOME = ? WHERE id_pessoa = ?"
+            cursor.execute(sql_update, (nome, cpf))
+            nome = request.form['nome']
+            cpf = request.form['cpf']     
+            conexao.commit()
+            conexao.close()
+            return redirect(url_for('index'))
     except Exception as ex:
         print(ex)
         return False
         
-        # for pessoa in pessoas:
-        #     if pessoa['id_pessoa'] == id_pessoa:
-        #         if request.method == 'POST':
-        #             pessoa['nome'] = request.form['nome']
-        #             pessoa['cpf'] = request.form['cpf']
-        #             return redirect(url_for('index'))
-        #         return render_template('editar.html', pessoa=pessoa)
-        # return "Pessoa não encontrada."
+
 
 # Rota para excluir uma pessoa
 @app.route('/excluir/<id_pessoa>')
@@ -143,7 +135,7 @@ def excluir_pessoa(id_pessoa:int):
         cursor.execute(sql_delete, (id_pessoa, ))
         conexao.commit()
         conexao.close()
-        return True
+        return redirect(url_for('index'))
     except Exception as ex:
         print(ex)
         return False
